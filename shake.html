@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>DANUP shake</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="shake.css">
+        <script type="text/javascript">
+        window.onload = function(){
+            
+            var lastTime = 0;
+            var x = y = z = lastX = lastY = lastZ = 0;
+            var shakeSpeed = 3000;
+
+            if(window.DeviceMotionEvent){
+                window.addEventListener('devicemotion', shake, false);
+            }else{
+                alert('Portablek mayshakich');
+            }
+
+            function shake(eventDate){
+                var acceleration = eventDate.accelerationIncludingGravity;
+                var nowTime = new Date().getTime();
+                if(nowTime - lastTime > 100){
+                    var diffTime = nowTime - lastTime;
+                    lastTime = nowTime;
+                    x = acceleration.x;
+                    y = acceleration.y;
+                    z = acceleration.z;
+                    var speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
+                    var h1 = document.getElementsByTagName('h1')[0];
+                    h1.innerHTML = speed;
+                    if(speed > shakeSpeed){
+                        showResult();
+                        //alert(speed);
+                    }
+                    lastX = x;
+                    lastY = y;
+                    lastZ = z;
+                }
+            }
+
+            function showResult(){
+                document.getElementById("result").className = 'result';
+                document.getElementById("loading").className = 'loading loading-show';
+                setTimeout(function(){
+                    document.getElementById("result").className = 'result result-show';
+                    document.getElementById("loading").className = 'loading';
+                }, 1000);
+                window.navigator.vibrate(100);
+
+            }
+        };
+        </script>
+    </head>
+    <body>
+        <h1>HNE</h1>
+        <div id="hand" class="hand"></div>
+        <div id="loading" class="loading"></div>
+        <div id="result" class="result">
+            <div class="pic"><img src="https://scontent.ftun3-1.fna.fbcdn.net/v/t1.0-9/20479526_1211609535617744_5310336652754424518_n.png?oh=7fe62f8a1e8a7c9b95e938cffbbe91d3&oe=5A336C88"></div>
+        </div>
+    </body>
+</html>

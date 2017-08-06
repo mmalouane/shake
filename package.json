@@ -1,0 +1,19 @@
+{
+  "name": "game-shake",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "main": "app",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com/entijaaba2/game-shake.git"
+  },
+  "author": {
+    "name": "danup",
+    "email": "shaker@danup.tn"
+  },
+  "dependencies": {
+  }
+}
